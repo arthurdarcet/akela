@@ -10,9 +10,12 @@ const reciepts = [
 export default class TeamSelector extends React.Component {
     render() {
         return (
-            <ul>
-                {reciepts.map((r) => <li>{r.amount}</li>)}
-            </ul>
+            <div>
+                <h2>Ticket pour {this.props.team.name}</h2>
+                <ul>
+                    {reciepts.map((r) => <li>{r.amount}</li>)}
+                </ul>
+            </div>
         );
     }
 }

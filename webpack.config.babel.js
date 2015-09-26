@@ -16,7 +16,7 @@ export default {
             test: /\.js$/,
             exclude: /node_modules/,
             loader: 'babel',
-            query: {stage: 0, optional: ['runtime'], plugins: ['./server/babelRelayPlugin']}
+            query: {stage: 0, optional: ['runtime'], plugins: ['./client/babelRelayPlugin']}
         }, {
             test: /\.css$/,
             loader: 'style!css'

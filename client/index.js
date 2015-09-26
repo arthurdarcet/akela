@@ -4,7 +4,6 @@ import Relay from 'react-relay';
 import {IndexRoute, Route, Router} from 'react-router';
 
 import App from './components/App';
-import RecieptsList from './components/RecieptsList';
 
 
 Relay.injectNetworkLayer(
