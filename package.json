@@ -6,9 +6,10 @@
   "license": "ISC",
   "homepage": "https://github.com/arthurdarcet/akela",
   "scripts": {
-    "client": "./node_modules/.bin/webpack-dev-server",
+    "update-schema": "./node_modules/.bin/babel-node tools/update-schema",
+    "client": "./node_modules/.bin/webpack-dev-server --hot",
     "server": "./node_modules/.bin/babel server -d build/server --stage 0 --experimental -w & nodemon build/server",
-    "star_t": "npm run client & npm run server"
+    "start": "npm run client & npm run server"
   },
   "repository": {
     "type": "git",

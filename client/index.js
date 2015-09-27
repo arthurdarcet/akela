@@ -1,30 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Relay from 'react-relay';
-import {IndexRoute, Route, Router} from 'react-router';
 
 import App from './components/App';
 
 
-Relay.injectNetworkLayer(
-  new Relay.DefaultNetworkLayer('http://www.GraphQLHub.com/graphql')
-);
+Relay.injectNetworkLayer(new Relay.DefaultNetworkLayer('/graphql'));
 
 const mountNode = document.createElement('div');
 document.body.appendChild(mountNode);
 
-class RelayRoute extends Relay.Route {
-    static routeName = 'HackerNewsRoute';
+class RelayRoot extends Relay.Route {
+    static routeName = 'RootQuery';
     static queries = {
-        store: (Component) => Relay.QL`
-            query root {
-                hn { ${Component.getFragment('store')} },
-            }
+        user: (Component) => Relay.QL`
+            query { user(id: "56066eea11978c460b95285c") {
+                ${Component.getFragment('user')}
+            } }
         `,
     };
 }
 
 ReactDOM.render(
-    <Relay.RootContainer Component={App} route={new RelayRoute()} />,
+    <Relay.RootContainer Component={App} route={new RelayRoot()} />,
     mountNode
 );

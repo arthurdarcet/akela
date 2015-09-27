@@ -6,17 +6,25 @@ import webpack from 'webpack';
 const production = process.env.NODE_ENV === 'production';
 
 export default {
-    entry: path.resolve(__dirname, 'client'),
+    entry: [
+        path.resolve(__dirname, 'client', 'index.js'),
+        'webpack/hot/dev-server',
+        'webpack-dev-server/client'
+    ],
     output: {
         path: './build',
-        filename: 'bundle.js'
+        filename: '/bundle.js'
     },
     module: {
         loaders: [{
             test: /\.js$/,
             exclude: /node_modules/,
-            loader: 'babel',
-            query: {stage: 0, optional: ['runtime'], plugins: ['./client/babelRelayPlugin']}
+            loader: ['babel-loader'],
+            query: {
+                stage: 0,
+                optional: ['runtime'],
+                plugins: ['./tools/babel-relay-plugin']
+            }
         }, {
             test: /\.css$/,
             loader: 'style!css'
@@ -28,10 +36,17 @@ export default {
         }),
         new HtmlWebpackPlugin({
             title: 'Compta • Scouts de Neuilly'
-        })
+        }),
+        new webpack.HotModuleReplacementPlugin(),
     ],
     devtool: production ? 'source-map' : 'eval-source-map',
     devServer: {
-        contentBase: './build'
+        host: '0.0.0.0',
+        port: 4000,
+        hot: true,
+        contentBase: './build',
+        proxy: {
+            '/graphql': 'http://127.0.0.1:3000',
+        }
     }
 };
